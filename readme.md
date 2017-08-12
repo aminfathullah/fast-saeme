@@ -11,36 +11,37 @@ Installation
 2. Dependencies
 	* Open R project
 	* Install the following package
-		* shiny
-          ````
-          install.packages('shiny')
-          ````
+	    * shiny
+    	    ```
+    	    install.packages('shiny')
+    	    ```
 		* shinytheme
-          ````
-          install.packages('shinythemes')
-          ````
+    	    ```
+    	    install.packages('shinytheme')
+    	    ```
 		* DT
-          ````
-          install.packages('DT')
-          ````
+    	    ```
+    	    install.packages('DT')
+    	    ```
 		* saeme
-          ````
-          devtools::install_github('aminfathullah/saeme')
-          ````
-    * plotly
-          ````
-          install.packages('plotly')
-          ````
-    * shinycssloaders
-          ````
-          install.packages('shinycssloaders')
-          ````
+    	    ```
+    	    devtools::install_github('aminfathullah/saeme')
+    	    ```
+        * plotly
+    	    ```
+    	    install.packages('plotly')
+    	    ```
+        * shinycssloaders
+    	    ```
+    	    install.packages('shinycssloaders')
+    	    ```
 3. Open Program
 	* Open the R project
 	* Execute program
-      ````
-      shiny::runApp('fast-saeme-master', launch.browser = T)
-      ````
+	```
+	shiny::runApp('fast-saeme-master', launch.browser = T)
+	```
+
 Usage
 ----
  1. Import data
