@@ -27,6 +27,10 @@ Installation
           ````
           devtools::install_github('aminfathullah/saeme')
           ````
+    * plotly
+          ````
+          install.packages('plotly')
+          ````
 3. Open Program
 	* Open the R project
 	* Execute program

@@ -19,7 +19,9 @@ output$data <- renderUI({
                    '"')
     ),
     mainPanel(
-      DT::dataTableOutput('table')
+      wellPanel(
+        DT::dataTableOutput('table')
+      )
     )
   )
 })

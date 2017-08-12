@@ -27,14 +27,18 @@ output$fhme <- renderUI({
 
           br(),
           br(),
-          textOutput("pre_table"),
-          tags$style(type="text/css", "#pre_table {font-weight: bold;}"),
-          helpText(" "),
-          dataTableOutput("estimation")
+          wellPanel(
+            textOutput("pre_table"),
+            tags$style(type="text/css", "#pre_table {font-weight: bold;}"),
+            helpText(" "),
+            dataTableOutput("estimation")
+          )
         ),
         tabPanel(
           title = "Plot",
-          plotOutput("plot", width = "400px", height = "400px")
+          wellPanel(
+            plotlyOutput('plot')
+          )
         )
       )
     )
@@ -80,13 +84,14 @@ output$estimation <- DT::renderDataTable({
   DT::datatable(est_table, rownames = T, autoHideNavigation = T, class = "table table-striped table-bordered", options = list(columns.className = "dt-left"))
 })
 
-output$plot <- renderPlot({
+output$plot <- renderPlotly({
   if(is.null(sae$vals))
     sae_me <- var()
   else
     sae_me <- sae$vals
-  
-  plot(sae_me)
+  maks <- max(c(sae_me$psi, sae_me$mse))
+  plotdata <- data.frame("psi"=sae_me$psi, "mse"=sae_me$mse)
+  plot_ly(plotdata, type = 'scatter', x = ~psi, y = ~mse) %>% layout(title = "Mean Square Error", xaxis = list(title = "Direct estimation", range = list(0, maks)), yaxis = list(title= "Small area estimation", range = list(0, maks), scaleanchor = 'x'))
 })
 
 var <- eventReactive(input$go, {
