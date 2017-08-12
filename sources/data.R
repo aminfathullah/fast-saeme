@@ -29,5 +29,5 @@ output$table <- DT::renderDataTable({
   data <- datah()
   var_names <- names(data)
   classes <- sapply(var_names, function(x) class(data[,x]))
-  DT::datatable(data, rownames = F, autoHideNavigation = T, colnames = paste(var_names, " (", classes, ")", sep = ""))
+  DT::datatable(data, style = 'bootstrap', rownames = F, autoHideNavigation = T, colnames = paste(var_names, " (", classes, ")", sep = ""))
 })

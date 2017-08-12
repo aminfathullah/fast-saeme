@@ -81,7 +81,11 @@ output$estimation <- DT::renderDataTable({
     est_table <- data.frame("y"=sae_me$y_me, "gamma"=sae_me$gamma, "mse"=sae_me$mse)
   }
   est_table
-  DT::datatable(est_table, rownames = T, autoHideNavigation = T, class = "table table-striped table-bordered", options = list(columns.className = "dt-left"))
+  if(!is.null(sae_me))
+    return(DT::datatable(est_table, rownames = T, autoHideNavigation = T, style = 'bootstrap') %>% formatRound(columns = 1:3, digits = 5))
+  else
+    return(DT::datatable(est_table, rownames = T, autoHideNavigation = T, style = 'bootstrap'))
+  
 })
 
 output$plot <- renderPlotly({
