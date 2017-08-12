@@ -38,9 +38,9 @@ Installation
 3. Open Program
 	* Open the R project
 	* Execute program
-	```
-	shiny::runApp('fast-saeme-master', launch.browser = T)
-	```
+    	```
+    	shiny::runApp('fast-saeme-master', launch.browser = T)
+    	```
 
 Usage
 ----
