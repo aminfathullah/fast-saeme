@@ -37,7 +37,7 @@ output$fhme <- renderUI({
         tabPanel(
           title = "Plot",
           wellPanel(
-            plotlyOutput('plot')
+            shinycssloaders::withSpinner(plotlyOutput('plot'), type = 8)
           )
         )
       )

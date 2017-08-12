@@ -31,6 +31,10 @@ Installation
           ````
           install.packages('plotly')
           ````
+    * shinycssloaders
+          ````
+          install.packages('shinycssloaders')
+          ````
 3. Open Program
 	* Open the R project
 	* Execute program

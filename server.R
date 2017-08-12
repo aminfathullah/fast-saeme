@@ -3,6 +3,7 @@ library(DT)
 library(shinythemes)
 library(saeme)
 library(plotly)
+library(shinycssloaders)
 
 R.utils::sourceDirectory('functions', recursive = TRUE, modifiedOnly = FALSE)
 shinyServer(function(input, output, session)
