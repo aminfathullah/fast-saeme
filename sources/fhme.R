@@ -3,11 +3,17 @@ output$fhme <- renderUI({
   var_list <- names(data)
   sidebarLayout(
     sidebarPanel(
-      selectizeInput('y', 'Direct estimator', var_list),
-      selectizeInput('mse_y', 'MSE of y', var_list),
-      selectizeInput('x', 'Auxiliary variables', var_list, multiple = T, options = list(placeholder = 'select one or more variable(s)')),
-      selectizeInput('mse_x', 'MSE of Auxiliary variables', var_list, multiple = T, options = list(placeholder = 'select one or more variable(s)')), 
-      actionButton("go", "Calculate")
+      wellPanel(
+        selectizeInput('y', 'Direct estimator', var_list),
+        selectizeInput('mse_y', 'MSE of y', var_list),
+        selectizeInput('x', 'Auxiliary variables', var_list, multiple = T, options = list(placeholder = 'select one or more variable(s)')),
+        selectizeInput('mse_x', 'MSE of Auxiliary variables', var_list, multiple = T, options = list(placeholder = 'select one or more variable(s)'))
+      ),
+      actionButton("go", "Calculate"),
+      conditionalPanel('input.go != 0', 
+                       wellPanel(radioButtons('formatSAE', 'Document format', c('Word', 'PDF', 'HTML')),
+                                 downloadButton('downloadReportSAE')
+                       ))
     ),
     mainPanel(
       tabsetPanel(
@@ -117,3 +123,50 @@ pull_values <- function(x, values)
 }
 
 sae <- reactiveValues()
+
+output$downloadReportSAE <- downloadHandler(
+  filename = function() {
+    paste('SAE Report', sep = '.', switch(
+      input$formatSAE, PDF = 'pdf', HTML = 'html', Word = 'docx'
+    ))
+  },
+  
+  content = function(file) {
+    src <- normalizePath('sae-report.Rmd')
+    
+    # temporarily switch to the temp dir, in case you do not have write
+    # permission to the current working directory
+    owd <- setwd(tempdir())
+    on.exit(setwd(owd))
+    file.copy(src, 'sae-report.Rmd')
+    
+    library(rmarkdown)
+    out <- render('sae-report.Rmd', switch(
+      input$formatSAE,
+      PDF = pdf_document(), HTML = html_document(), Word = word_document()
+    ))
+    file.rename(out, file)
+  }
+)
+
+estimated <- function()
+{
+  hasil <- sae$vals
+  cat("Coefficients: \n")
+  print(hasil$beta)
+  cat("\nSigma: \n")
+  cat(hasil$sigma)
+  cat("\n\n")
+  print(data.frame('y'=hasil$y_me, 'gamma'=hasil$gamma, 'mse'=hasil$mse))
+}
+plotSAE <- function()
+{
+  hasil <- sae$vals
+  plot(hasil)
+}
+
+calls <- function()
+{
+  hasil <- sae$vals
+  print(hasil$call)
+}

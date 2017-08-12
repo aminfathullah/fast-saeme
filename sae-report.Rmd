@@ -1,0 +1,26 @@
+##Forum Analisis Statistik
+###SAE Report
+###Tools: Fay Herriot with Measurement Error
+***
+
+####Calls: 
+```{r, echo=FALSE}
+calls()
+```
+  
+```{r}
+
+```
+
+####Estimated Values
+
+```{r, echo=FALSE}
+estimated()
+```
+
+####Plot (Direct vs SAE): 
+
+```{r, echo=FALSE}
+plotSAE()
+```
+
