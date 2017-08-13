@@ -98,7 +98,7 @@ output$plot <- renderPlotly({
   plot_ly(plotdata, type = 'scatter', x = ~psi, y = ~mse,  marker = list(size = 10,
                                                                          color = 'rgb(135,206,250,0.9)',
                                                                          line = list(color = 'rgba(0,0,255, 0.7)', 
-                                                                                     width = 2))) %>% layout(title = "Mean Square Error", xaxis = list(title = "Direct estimation", range = list(0, maks)), yaxis = list(title= "Small area estimation", range = list(0, maks), scaleanchor = 'x'))
+                                                                                     width = 2))) %>% layout(title = "Mean Square Error", xaxis = list(title = "Direct estimation", range = list(0, maks)), yaxis = list(title= "Small area estimation", range = list(0, maks), scaleanchor = 'x'), dragmode = "pan" )
 })
 
 var <- eventReactive(input$go, {
