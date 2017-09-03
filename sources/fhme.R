@@ -10,7 +10,7 @@ output$fhme <- renderUI({
         selectizeInput('mse_x', 'MSE of Auxiliary variables', var_list, multiple = T, options = list(placeholder = 'select one or more variable(s)'))
       ),
       actionButton("go", "Calculate"),
-      conditionalPanel('input.go != 0', 
+      conditionalPanel('input.go != 0 && input.tabs != "Estimation"', 
                        wellPanel(radioButtons('formatSAE', 'Document format', c('Word', 'PDF', 'HTML')),
                                  downloadButton('downloadReportSAE')
                        ))
@@ -59,10 +59,9 @@ output$head <- renderPrint({
     sae_me <- sae$vals
     cat("Call:\n")
     print(sae_me$call)
-    cat("\n\nBeta:\n")
+    cat("\nBeta Coefficient:\n")
     print(as.vector(sae_me$beta))
     sae$val <- sae_me
-    cat("\n ")
   }
 })
 
@@ -174,6 +173,8 @@ estimated <- function()
 plotSAE <- function()
 {
   hasil <- sae$vals
+  tmp <- par()
+  par(pin = c(5, 5))
   plot(hasil)
 }
 
